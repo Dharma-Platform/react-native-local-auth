@@ -38,6 +38,18 @@ let LocalAuth = {
     })
   },
 
+  isSupported() {
+    return new Promise(function(resolve, reject) {
+      NativeLocalAuth.isSupported(function(error, biometryType) {
+        if (error) {
+          return reject(createError(error.message))
+        }
+
+        resolve(biometryType)
+      })
+    })
+  },
+
   authenticate(opts) {
     return new Promise(function(resolve, reject) {
       NativeLocalAuth.authenticate(

@@ -20,6 +20,10 @@ module.exports = {
     return RNLocalAuth.isDeviceSecure()
   },
 
+  isSupported() {
+    return RNLocalAuth.isSupported()
+  },
+
   authenticate(opts) {
     return RNLocalAuth.authenticate(opts)
       .catch(err => {

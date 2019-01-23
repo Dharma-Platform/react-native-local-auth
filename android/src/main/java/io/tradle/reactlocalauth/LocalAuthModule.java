@@ -2,6 +2,7 @@
 package io.tradle.reactlocalauth;
 
 import android.app.Activity;
+import android.os.Build;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.Context;
@@ -23,6 +24,8 @@ public class LocalAuthModule extends ReactContextBaseJavaModule {
   private static final String E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST";
   private static final String E_AUTH_CANCELLED = "LAErrorUserCancel";
   private static final String E_FAILED_TO_SHOW_AUTH = "E_FAILED_TO_SHOW_AUTH";
+  private static final String E_API_NOT_SUPPORTED = "LAAPINotSupported";
+  private static final String E_METHOD_NOT_SUPPORTED = "LAMethodNotSupported";
   private static final String E_ONE_REQ_AT_A_TIME = "E_ONE_REQ_AT_A_TIME";
 
   private final ReactApplicationContext reactContext;
@@ -58,7 +61,22 @@ public class LocalAuthModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void isDeviceSecure(final Promise promise) {
-    promise.resolve(mKeyguardManager.isDeviceSecure());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      promise.resolve(mKeyguardManager.isDeviceSecure());
+      return;
+    }
+    promise.reject(E_METHOD_NOT_SUPPORTED, "Method is not suppported by Device API");
+    return;
+  }
+
+  @ReactMethod
+  public void isSupported(final Promise promise) {
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+      promise.reject(E_API_NOT_SUPPORTED, "Device API doesn't support authentication");
+        return;
+    }
+    promise.resolve(true);
+    return;
   }
 
   @ReactMethod
@@ -83,8 +101,12 @@ public class LocalAuthModule extends ReactContextBaseJavaModule {
     String reason = map.hasKey("reason") ? map.getString("reason") : null;
     String description = map.hasKey("description") ? map.getString("description") : null;
     try {
-      final Intent authIntent = mKeyguardManager.createConfirmDeviceCredentialIntent(reason, description);
-      currentActivity.startActivityForResult(authIntent, AUTH_REQUEST);
+      final Intent authIntent = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? mKeyguardManager.createConfirmDeviceCredentialIntent(reason, description) : null;
+      if (authIntent != null) {
+        currentActivity.startActivityForResult(authIntent, AUTH_REQUEST);
+        return;
+      }
+      authPromise.reject(E_API_NOT_SUPPORTED, "Device API doesn't support authentication");
     } catch (Exception e) {
       authPromise.reject(E_FAILED_TO_SHOW_AUTH, e);
       authPromise = null;

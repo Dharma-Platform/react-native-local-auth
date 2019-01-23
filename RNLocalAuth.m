@@ -46,6 +46,28 @@ RCT_EXPORT_METHOD(authenticateWithTouchID: (NSString*)reason
                              callback:callback];
 }
 
+RCT_EXPORT_METHOD(isSupported: (RCTResponseSenderBlock)callback)
+{
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error;
+
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        callback(@[[NSNull null], [self getBiometryType:context]]);
+    } else {
+        callback(@[RCTMakeError(@"RCTTouchIDNotSupported", nil, nil)]);
+        return;
+    }
+}
+
+- (NSString *)getBiometryType:(LAContext *)context
+{
+    if (@available(iOS 11.0.1, *)) {
+        return (context.biometryType == LABiometryTypeFaceID) ? @"FaceID" : @"TouchID";
+    }
+
+    return @"TouchID";
+}
+
 - (void) authenticateWithPolicyAsync: (LAPolicy) policy
                               reason:(NSString*)reason
                   fallbackToPasscode:(BOOL)fallbackToPasscode
