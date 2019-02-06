@@ -54,4 +54,9 @@ RCT_EXPORT_METHOD(get:(RCTResponseSenderBlock)callback)
   }
 }
 
++ (BOOL) requiresMainQueueSetup
+{
+    return NO;
+}
+
 @end
