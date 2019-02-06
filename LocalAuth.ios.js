@@ -7,8 +7,8 @@
 
 import { NativeModules } from 'react-native'
 import { createError } from './error'
-import PasscodeStatus from 'react-native-passcode-status'
 
+let PasscodeStatus = NativeModules.RNPasscodeStatus
 let NativeLocalAuth = NativeModules.RNLocalAuth
 let LocalAuth = {
   hasTouchID() {
