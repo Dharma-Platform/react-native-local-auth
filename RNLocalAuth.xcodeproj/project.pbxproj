@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		13BE3DEE1AC21097009241FE /* RNLocalAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BE3DED1AC21097009241FE /* RNLocalAuth.m */; };
+		9392F264220B1EE40047A37F /* UIDevice+PasscodeStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9392F262220B1EE40047A37F /* UIDevice+PasscodeStatus.m */; };
+		9392F267220B1F0D0047A37F /* RNPasscodeStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9392F266220B1F0D0047A37F /* RNPasscodeStatus.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,10 @@
 		134814201AA4EA6300B7C361 /* libRNLocalAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNLocalAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BE3DEC1AC21097009241FE /* RNLocalAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNLocalAuth.h; sourceTree = "<group>"; };
 		13BE3DED1AC21097009241FE /* RNLocalAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNLocalAuth.m; sourceTree = "<group>"; };
+		9392F262220B1EE40047A37F /* UIDevice+PasscodeStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+PasscodeStatus.m"; sourceTree = "<group>"; };
+		9392F263220B1EE40047A37F /* UIDevice+PasscodeStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+PasscodeStatus.h"; sourceTree = "<group>"; };
+		9392F265220B1F0D0047A37F /* RNPasscodeStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNPasscodeStatus.h; sourceTree = "<group>"; };
+		9392F266220B1F0D0047A37F /* RNPasscodeStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNPasscodeStatus.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,10 +56,22 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				9392F261220B1E160047A37F /* passcode */,
 				13BE3DEC1AC21097009241FE /* RNLocalAuth.h */,
 				13BE3DED1AC21097009241FE /* RNLocalAuth.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		9392F261220B1E160047A37F /* passcode */ = {
+			isa = PBXGroup;
+			children = (
+				9392F265220B1F0D0047A37F /* RNPasscodeStatus.h */,
+				9392F266220B1F0D0047A37F /* RNPasscodeStatus.m */,
+				9392F263220B1EE40047A37F /* UIDevice+PasscodeStatus.h */,
+				9392F262220B1EE40047A37F /* UIDevice+PasscodeStatus.m */,
+			);
+			name = passcode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,7 +130,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9392F267220B1F0D0047A37F /* RNPasscodeStatus.m in Sources */,
 				13BE3DEE1AC21097009241FE /* RNLocalAuth.m in Sources */,
+				9392F264220B1EE40047A37F /* UIDevice+PasscodeStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
